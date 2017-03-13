@@ -13,6 +13,9 @@ html
         nav.navbar.navbar-default
           ul.nav.navbar-nav
             a.navbar-brand href='/' Insta
-            /li=link_to "Главная", root_path
             li=link_to "О проекте", pages_about_path
+            - if user_signed_in?
+              li=link_to "Выйти", destroy_user_session_path, method: :delete
+        p.notice=notice
+        p.alert=alert
         == yield

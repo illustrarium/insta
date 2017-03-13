@@ -1,8 +1,12 @@
-.jumbotron.jimbotron-landing
-  h1 Делитесь своими эмоциями
-  p Размещайте свои фотографии и подписывайтесь на публикации своих друзей!
-  br
-  p.lead
-    a.btn.btn-primary.btn-lg href='#' Войти
-    a.btn.btn-primary.btn-lg.make-acc< href='#' Создать аккаунт
+- unless user_signed_in?
+  .jumbotron.jimbotron-landing
+    h1 Делитесь своими эмоциями
+    p Размещайте свои фотографии и подписывайтесь на публикации своих друзей!
+    br
+    p.lead
+      /a.btn.btn-primary.btn-lg href='#' Войти
+      /a.btn.btn-primary.btn-lg.make-acc< href='#' Создать аккаунт
 
+      | #{link_to "Войти", new_user_session_path, class: "btn btn-primary btn-lg"} #{link_to "Создать аккаунт", new_user_registration_path, class: "btn btn-primary btn-lg make-acc"}
+      =
+- else
