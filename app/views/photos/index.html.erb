@@ -3,7 +3,8 @@
 
 <table>
   <thead>
-    <tr>
+    <tr>  
+      <th>User e-mail</th>
       <th>Description</th>
       <th colspan="3"></th>
     </tr>
@@ -12,10 +13,16 @@
   <tbody>
     <% @photos.each do |photo| %>
       <tr>
+        <td><%= photo.user.email if photo.user %></td>
         <td><%= photo.description %></td>
         <td><%= link_to 'Show', photo %></td>
-        <td><%= link_to 'Edit', edit_photo_path(photo) %></td>
-        <td><%= link_to 'Destroy', photo, method: :delete, data: { confirm: 'Are you sure?' } %></td>
+
+        <% if photo.user == current_user %>
+
+          <td><%= link_to 'Edit', edit_photo_path(photo) %></td>
+          <td><%= link_to 'Destroy', photo, method: :delete, data: { confirm: 'Are you sure?' } %></td>
+
+        <% end %>
       </tr>
     <% end %>
   </tbody>
@@ -23,4 +30,6 @@
 
 <br>
 
+<% if user_signed_in? %>
 <%= link_to 'New Photo', new_photo_path %>
+<% end %>

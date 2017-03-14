@@ -1,5 +1,7 @@
 class PhotosController < ApplicationController
   before_action :set_photo, only: [:show, :edit, :update, :destroy]
+  before_action :authenticate_user!, except: [:index, :show]
+  before_action :is_owner?, only: [:edit, :update, :destory]
 
   def index
     @photos = Photo.all
@@ -38,13 +40,18 @@ class PhotosController < ApplicationController
   end
 
   private
-    # Use callbacks to share common setup or constraints between actions.
     def set_photo
       @photo = Photo.find(params[:id])
     end
 
-    # Never trust parameters from the scary internet, only allow the white list through.
     def photo_params
       params.require(:photo).permit(:description)
+    end
+
+    def is_owner? #ищем фото с заданным id проверяем совпадают ли создатель и активный пользователь
+      @photo = Photo.find(params[:id])
+      unless @photo.user == current_user
+        redirect_to photos_path, notice: "У вас нет прав на изменение этой фотографии!"  
+      end
     end
 end

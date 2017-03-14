@@ -3,7 +3,10 @@
 <p>
   <strong>Description:</strong>
   <%= @photo.description %>
+  <strong>User:</strong>
+  <%= @photo.user.email if @photo.user %>
 </p>
-
+<% if @photo.user == current_user %>
 <%= link_to 'Edit', edit_photo_path(@photo) %> |
 <%= link_to 'Back', photos_path %>
+<% end %>
