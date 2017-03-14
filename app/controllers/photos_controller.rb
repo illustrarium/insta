@@ -45,7 +45,7 @@ class PhotosController < ApplicationController
     end
 
     def photo_params
-      params.require(:photo).permit(:description)
+      params.require(:photo).permit(:description, :image)
     end
 
     def is_owner? #ищем фото с заданным id проверяем совпадают ли создатель и активный пользователь
